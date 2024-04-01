@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Avatar, Badge, Grid, Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import CreateIcon from '@material-ui/icons/Create';
+import UserList from './CollaborationListUsers';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,8 +31,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function GroupAvatars() {
+export default function GroupAvatars({ user }) {
   const classes = useStyles();
+  const [showUserList, setShowUserList] = useState(false);
+
+  const handleMouseHover = () => {
+    setShowUserList(!showUserList);
+  }
 
   return (
     <Grid container className={classes.root}>
@@ -46,17 +52,30 @@ export default function GroupAvatars() {
               }}
               badgeContent={<CreateIcon className={classes.icon} />}
             >
-              <Avatar alt="editor" src="" className={classes.editorAvatar} />
+              <Avatar
+               alt="editor" 
+               src="" 
+               className={classes.editorAvatar}
+               onMouseEnter={handleMouseHover}
+               onMouseLeave={handleMouseHover}
+              />
             </Badge>
+
+            {showUserList && (
+              <UserList />
+            )}
           </Grid>
           
           <Grid item xs={1} sm={2} md={3} className={classes.avatar}>
             <AvatarGroup max={3}>
-              <Avatar alt="user.name" src="" />
-              <Avatar alt="user.name" src="" />
-              <Avatar alt="user.name" src="" />
-              <Avatar alt="user.name" src="" />
-              <Avatar alt="user.name" src="" />
+              <Avatar alt="" src="" />
+              <Avatar alt="" src="" />
+              <Avatar alt="" src="" />
+              <Avatar alt="" src="" />
+              <Avatar alt="" src="" />
+              {/* {users.map((user, index) => (
+                <Avatar key={index} alt={user.name} src={user.avatarSrc} />
+              ))} */}
             </AvatarGroup>
           </Grid>
         </Grid>
