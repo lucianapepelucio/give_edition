@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
   },
   icon: {
     color: "#138848",
+    position: "absolute",
+    bottom: 5,
+    right: -10,
   },
   editorAvatar: {
     margin: theme.spacing(1),
@@ -36,7 +39,7 @@ export default function GroupAvatars() {
         <Grid container direction="row">
           <Grid item xs={1} sm={2} md={3}>
             <Badge
-              overlap="circle"
+              overlap="circular"
               anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'left',

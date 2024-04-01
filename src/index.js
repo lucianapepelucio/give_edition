@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import GroupAvatars from './avatarGroup';
+import GroupAvatars from './CollaborationUsers';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
