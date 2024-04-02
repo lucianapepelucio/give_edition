@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Avatar, Badge, Grid, Paper } from '@material-ui/core';
+import { Avatar, Badge, Grid, Paper, Menu, MenuItem } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import CreateIcon from '@material-ui/icons/Create';
-import UserList from './CollaborationListUsers';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,18 +30,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function GroupAvatars({ user }) {
+export default function GroupAvatars(/*{ user }*/) {
   const classes = useStyles();
-  const [showUserList, setShowUserList] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleMouseHover = () => {
-    setShowUserList(!showUserList);
-  }
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
     <Grid container className={classes.root}>
       <Paper className={classes.paper}>
-        <Grid container direction="row">
+        <Grid container direction="row" 
+          aria-controls="simple-menu" 
+          aria-haspopup="true" 
+          onClick={handleClick}
+        >
           <Grid item xs={1} sm={2} md={3}>
             <Badge
               overlap="circular"
@@ -56,14 +63,8 @@ export default function GroupAvatars({ user }) {
                alt="editor" 
                src="" 
                className={classes.editorAvatar}
-               onMouseEnter={handleMouseHover}
-               onMouseLeave={handleMouseHover}
               />
             </Badge>
-
-            {showUserList && (
-              <UserList />
-            )}
           </Grid>
           
           <Grid item xs={1} sm={2} md={3} className={classes.avatar}>
@@ -78,6 +79,28 @@ export default function GroupAvatars({ user }) {
               ))} */}
             </AvatarGroup>
           </Grid>
+
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleClose}>
+              <Avatar className={classes.editorAvatar}>
+                <img alt="" src="" />
+              </Avatar>
+              <p>user.name</p>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>
+              <Avatar className={classes.avatar}>
+                <img alt="" src="" />
+              </Avatar>
+              <p>user.name</p>
+            </MenuItem>
+          </Menu>
+
         </Grid>
       </Paper>
     </Grid>
